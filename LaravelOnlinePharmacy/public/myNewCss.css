@@ -1,0 +1,326 @@
+.charts{
+    /*height: 300px;*/
+}
+
+/*comments style start here */
+.detailBox {
+    border:1px solid #bbb;
+    border-radius: 6px;
+    /*overflow: overlay;*/
+    /*max-height: 870px;*/
+}
+.titleBox {
+    /*background-color:#fdfdfd;*/
+    padding:10px;
+}
+.titleBox label{
+    color:#444;
+    margin:0;
+    display:inline-block;
+}
+
+.commentBox {
+    padding:10px;
+    border-top:1px dotted #bbb;
+}
+.commentBox .form-group:first-child, .actionBox .form-group:first-child {
+    width:80%;
+}
+.commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+    width:18%;
+}
+.actionBox .form-group * {
+    width:100%;
+}
+.taskDescription {
+    margin-top:10px;
+}
+.commentList {
+    padding:0;
+    list-style:none;
+    /*max-height:200px;*/
+    overflow:auto;
+}
+.commentList li {
+    margin:0;
+    margin-top:10px;
+}
+.commentList li > div {
+    display:table-cell;
+}
+.commenterImage {
+    width:45px;
+    margin-right:5px;
+    height:100%;
+    float:left;
+}
+.commenterImage img {
+    width:100%;
+    border-radius:50%;
+}
+.commentText p {
+    margin:0;
+}
+.sub-text {
+    color:#aaa;
+    font-family:verdana;
+    font-size:11px;
+}
+.actionBox {
+    border-top:1px dotted #bbb;
+    padding:10px;
+    overflow-y: auto;
+    max-height: 740px;
+}
+/*comments style ends here*/
+
+#comentFormGroup{
+    width: 100%;
+}
+
+#sendBtn{
+    border-radius: 0px;
+}
+
+#comentGroup{
+    padding: 10px;
+}
+
+.comentWarning{
+    padding-left: 10px;
+    padding-top: 10px;
+    border: solid 1px #BBBBBB;
+    margin: -1px;
+    background-color: rgba(252, 248, 227, 0.14);
+    color: #BBBBBB;
+}
+
+.glyphicon { margin-right:5px; }
+.thumbnail
+{
+    margin-bottom: 20px;
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.item.list-group-item
+{
+    float: none;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+.item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover
+{
+    background: lightgreen;
+}
+
+.item.list-group-item .list-group-image
+{
+    margin-right: 10px;
+}
+.item.list-group-item .thumbnail
+{
+    margin-bottom: 0px;
+}
+.item.list-group-item .caption
+{
+    padding: 9px 9px 0px 9px;
+}
+.item.list-group-item:nth-of-type(odd)
+{
+    background: #eeeeee;
+}
+
+.item.list-group-item:before, .item.list-group-item:after
+{
+    display: table;
+    content: " ";
+}
+
+.item.list-group-item img
+{
+    float: left;
+}
+.item.list-group-item:after
+{
+    clear: both;
+}
+.list-group-item-text
+{
+    margin: 0 0 11px;
+}
+.grid-group-item{
+    float:left;
+
+
+}
+.grid-group-item:hover{
+    background: lightgreen;
+
+
+}
+@media screen and(min-width: 400px){
+
+    .caption{
+        font-size: 8px;
+    }
+
+}
+
+
+.navbar-brand {
+    font-size:1.8em;
+}
+
+
+
+#topContainer {
+
+    height:400px;
+    width:100%;
+    background-size:cover;
+}
+
+#topRow {
+    margin-top:100px;
+    text-align:center;
+}
+
+#topRow h1 {
+    font-size:300%;
+}
+
+
+
+.marginTop {
+    margin-top:30px;
+}
+
+.center {
+    text-align:center;
+}
+
+.title {
+    margin-top:100px;
+    font-size:300%;
+}
+
+#footer {
+    background-color:#B0D1FB;
+    padding-top:70px;
+    width:100%;
+}
+
+.marginBottom {
+    margin-bottom:30px;
+}
+.appstoreImage {
+    width:250px;
+}
+.colorNav{
+    color:black;
+
+
+}
+.linkNavbar{
+
+    color:green;
+}
+
+body{
+
+
+}
+.orange{
+    color:green;
+}
+.navbar{
+    position: static;
+}
+.navbar .nav > li {
+
+    z-index:1001;
+
+}
+h1 { color: black; font-family: 'Trocchi', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0; }
+
+h3 { color: green; font-family: 'Source Sans Pro', sans-serif; font-size: 20px; font-weight: 400; line-height: 20px; margin: 0 0 6px; }
+h3 > span { color:#808080; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: 400; line-height: 32px; margin: 0 0 24px; }
+.btnLike{
+    margin-top: 12px;
+}
+.selectQuantity{
+    width: 79px;
+    display: inline;
+
+}
+.btn-order{
+    width:79px;
+
+}
+.btnProduckt{
+    float: left;
+    margin-top: 20px;
+    margin-right: 17px;
+}
+
+.lev{
+    margin-left: 20px;
+}
+.visina{
+    height: 145px;
+    min-height: 145px;
+}
+.dolzina{
+    height: 188px;
+}
+
+.panel-default>.panel-heading {
+    color: white;
+    background-color: #5cb85c;
+    border-color: #ddd;
+}
+.bojaLek{
+    color:green;
+
+}
+.bojaRamka{
+    border:1px solid black;
+
+}
+.bojaLink{
+
+    color: white;
+
+
+}
+.bojaLink:hover{
+
+    color: green;
+
+
+}
+.navbar-brand {
+    font-size:1.8em;
+}
+
+.komentari{
+    background-color: lightgreen;
+
+}
+.dole{
+    padding-bottom: 35px;
+}
+.bela{
+    color:white;
+}
+
+span.sokri {
+    text-decoration: underline;
+    cursor: pointer;
+    color: darkblue;
+
+}
