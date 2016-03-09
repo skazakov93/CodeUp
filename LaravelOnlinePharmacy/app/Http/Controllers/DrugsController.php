@@ -145,6 +145,10 @@ class DrugsController extends Controller
 
         $comments = CommentDrug::where('drug_pharmacy_id', '=', $id)->get();
 
+//         if(is_null($comments)){
+//         	$comments = CommentDrug::all();
+//         }
+        
         $nestedComments=NestedComment::all(); //site komentari za toj dfu
 
 
@@ -192,34 +196,44 @@ class DrugsController extends Controller
     }
 
     public function submitLike($drugs){
-        //dd($drugs);
-        $drugPharmacy = DrugPharmacy::where('drug_id', '=', $drugs)->get()->first();
-
-        $drugPharmacyUser = DrugPharmacyUser::where('id', '=', $drugs)->get()->first();
-
-        $votes = Vote::all();
-
-        $flag = true;
-        foreach($votes as $vote){
-            if($vote->voter_id == Auth::user()->id && $vote->delivery_id == $drugPharmacyUser->user->id
-                && $vote->drug_pharmacy_id == $drugPharmacyUser->id){
-                $flag = false;
-                break;
-            }
-        }
-
-        if($flag) {
-            Vote::create([
-                'result' => 1,
-                'voter_id' => Auth::user()->id,
-                'delivery_id' => $drugPharmacyUser->user->id,
-                'drug_pharmacy_id' => $drugPharmacyUser->id,
-            ]);
-        }
-
-        return redirect('drugs');
-
-        //dd($drugPharmacy);
+    	//dd($drugs);
+    
+    	$drugPharmacy = DrugPharmacy::where('drug_id', '=', $drugs)->get()->first();
+    
+    	$drugPharmacyUser = DrugPharmacyUser::where('id', '=', $drugs)->get()->first();
+    
+    	$votes = Vote::all();
+    
+    	$flag = true;
+    	foreach($votes as $vote){
+    		if($vote->voter_id == Auth::user()->id && $vote->delivery_id == $drugPharmacyUser->user->id
+    				&& $vote->drug_pharmacy_id == $drugPharmacyUser->id){
+    			$flag = false;
+    			break;
+    		}
+    	}
+    
+    	if($flag) {
+    		Vote::create([
+    		'result' => 1,
+    		'voter_id' => Auth::user()->id,
+    		'delivery_id' => $drugPharmacyUser->user->id,
+    		'drug_pharmacy_id' => $drugPharmacyUser->id,
+    		]);
+    
+    		$myArray = array();
+    		$myArray['delivery_id'] = $drugPharmacyUser->user->id;
+    		$myArray['drug_pharmacy_id'] = $drugPharmacyUser->id;
+    
+    		return $myArray;
+    	}
+    	//return $drugs;
+    
+    	return "myNotOK";
+    
+    	//return redirect('drugs');
+    
+    	//dd($drugPharmacy);
     }
 
     public function submitDislike($drugs){
@@ -245,9 +259,17 @@ class DrugsController extends Controller
                 'delivery_id' => $drugPharmacyUser->user->id,
                 'drug_pharmacy_id' => $drugPharmacyUser->id,
             ]);
+            
+            $myArray = array();
+            $myArray['delivery_id'] = $drugPharmacyUser->user->id;
+            $myArray['drug_pharmacy_id'] = $drugPharmacyUser->id;
+            
+            return $myArray;
         }
 
-        return redirect('drugs');
+        return "myNotOK";
+        
+        //return redirect('drugs');
 
         //dd($drugPharmacy);
     }
@@ -269,11 +291,20 @@ class DrugsController extends Controller
             'comment_id' => $commentSaved->id,
         ]);
         
-        $myPath = explode("/comment", $request->path());
+        $myReturn = array();
+        
+        $myReturn['komentar'] = $comment;
+        $myReturn['imeP'] = Auth::user()->name;
+        $myReturn['prezimeP'] = Auth::user()->lastname;
+        $myReturn['timeCom'] = $commentSaved->created_at; 
+        
+        return $myReturn;
+        
+        //$myPath = explode("/comment", $request->path());
         
         //dd($myPath);
         
-        return redirect($myPath[0]);
+        //return redirect($myPath[0]);
     }
 
     public function drugPrice($id){
@@ -433,6 +464,7 @@ class DrugsController extends Controller
         $nestedComment = $request->input('com_text');
         $commentId = $request->input('com_id');
 
+        //dd($nestedComment);
 
         $commentSaved = NestedComment::create([
             'desc' => $nestedComment,
@@ -453,5 +485,33 @@ class DrugsController extends Controller
     //pri klik na kopce pokraj sekoj komentar ke gi pokazue vgnezdenite komentari
     public function getNestedCommentsOfAGivenComment($commentId){
         $nestedComments=NestedComment::where('comment_id', '=', $commentId)->all();
+    }
+    
+    public function getLatestComments($drugs, $latestCom){
+    	
+    	//dd($drugs);
+    	$comment = Comment::where('id', '=', $latestCom)->get()->first();
+    	
+    	//dd($comment->getDate());
+    	
+    	$comments = CommentDrug::where('drug_pharmacy_id', '=', $drugs)->get();
+    	
+    	$myReturn = array();
+    	foreach ($comments as $c){
+    		$momC = Comment::where('id', '=', $c->comment->id)->get()->first();
+    		
+    		if($momC->getDate() > $comment->getDate()){
+    			//$pom = array();
+    			//$pom[] = $momC;
+    			//$pom[] = $momC->user;
+    			
+    			//$myReturn[] = $pom;
+    			
+    			$myReturn[] = $momC;
+    			$myReturn[] = $momC->user;
+    		}
+    	}
+    	
+    	return $myReturn;
     }
 }

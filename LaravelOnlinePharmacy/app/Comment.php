@@ -11,9 +11,15 @@ class Comment extends Model
         'desc',
         'user_id',
     ];
+    
+    //protected $with = array('User');
 
     public function getCreatedAtAttribute($date){
         return Carbon::parse($date)->diffForHumans();
+    }
+    
+    public function getDate(){
+    	return $this->attributes['created_at'];
     }
 
     public function user(){

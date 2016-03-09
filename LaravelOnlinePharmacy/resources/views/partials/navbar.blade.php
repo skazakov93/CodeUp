@@ -27,7 +27,7 @@
                 @endif
                 @if($loggedUser->id < 1)
                     <a class="btn btn-success" href="/login">Log In</a>
-                    <a class="btn btn-primary" href="register">Sign Up</a>
+                    <a class="btn btn-primary" href="/register">Sign Up</a>
                 @endif
             </form>
         </div>

@@ -34,6 +34,8 @@ Route::get('drugs/price/{id}', 'DrugsController@drugPrice');
 //Tuka
 Route::get('alldrugs',  'DrugsController@listAllDrugsFromUser');
 
+Route::get('/api/drugs/{drugs}/{latestCom}',  'DrugsController@getLatestComments');
+
 
 
 //Route::get('drugs/{drugs}/comment/{coment}/nested', 'DrugsController@postNestedComment');
@@ -73,6 +75,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('alldrugs',  'DrugsController@listAllDrugsFromUser');
 
     Route::get('/home', 'HomeController@index');
+    
+    Route::get('/api/drugs/{drugs}/{latestCom}',  'DrugsController@getLatestComments');
 
 
     //Route::get('drugs/{drugs}/comment/{coment}/nested', 'DrugsController@postNestedComment');
