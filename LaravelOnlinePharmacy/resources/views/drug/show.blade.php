@@ -67,19 +67,12 @@
 
                <!-- coments start here -->
     <div class="detailBox">
-        <div class="titleBox">
-            <label><span class="glyphicon glyphicon-text-background"></span> Comments</label>
-        </div>
-        <div class="comentWarning">
-            <p class="taskDescription">Spam and insulting coments will be baned</p>
-        </div>
 
         <div class="actionBox">
             	<ul class="myComUl">
 
                 @foreach($commentsList as $comment)
-                    <li>
-                    <div class="media">
+                   <div class="media">
                             <div class="commenterImage">
                             	<img src="http://gurucul.com/wp-content/uploads/2015/01/default-user-icon-profile.png" />
                         	</div>
@@ -118,7 +111,6 @@
                                 </div>
                     </div>
 					</div>
-					</li>
                 @endforeach
 			</ul>
             
@@ -178,8 +170,6 @@
 
     		//var sel = $("#sodrzinaKom").val();
 
-    		//alert(sel + "-");
-    
     		frm.unbind('submit').submit(function (ev) {
         		$.ajax({
             		type: frm.attr('method'),
@@ -188,8 +178,11 @@
             
             		success: function (data) {
                 		//$(".actionBox ul").append('<div class="media"><div class="commenterImage"><img src="http://gurucul.com/wp-content/uploads/2015/01/default-user-icon-profile.png" /></div><div class="media-body"><div class="commentText"> <p class="">' + data['komentar'] + '</p> <span class="username date sub-text">by ' + data['imeP'] + ' ' + data['prezimeP'] + '</span> <span class="date sub-text">' + data['timeCom'] + '</span></div></div></div>');
-            		}
+            			
+                	}
         	});
+
+        	$("#sodrzinaKom").val('');
 
         	ev.preventDefault();
     		});
@@ -199,7 +192,10 @@
 	
     <!-- za zemanje na novi komentari -->
     <script>
-    	var lastComId = {{$commentsList[sizeof($commentsList) - 1]->comment->id}};
+
+    	var lastComId = {{ $imaKom }};
+
+		//alert("=" + lastComId);
     
 		$(document).ready(function(){
 			//alert(lastComId + "-");
@@ -207,15 +203,17 @@
         	$.get('/api/drugs/' + {{$drugPharUser->id}} + '/' + lastComId, function(data) {
             	//alert( "Data Loaded: " + data[0].id);
 
-            	for(i = 0; i < data.length - 1; i += 2){
-					//alert(data[i].user.name);
-					lastComId = data[i].id;
+				if(data.length >= 2){
+					for(i = 0; i < data.length - 1; i += 2){
+						//alert(data[i].user.name);
+						lastComId = data[i].id;
             		
-            		$(".myComUl").append('<div class="media"><div class="commenterImage"><img src="http://gurucul.com/wp-content/uploads/2015/01/default-user-icon-profile.png" /></div><div class="media-body"><div class="commentText"><p class="">' + data[i].desc + '</p><span class="username date sub-text">by' + data[i].user.name + ' ' + data[i].user.lastname + '</span> <span class="date sub-text">' + data[i].created_at + '</span></div><!-- Nested Comment --><span id="' + data[i].id + '" class="sokri" >Reply</span><div class="' + data[i].id + ' koms" ><!-- End Nested Comment --><form class="coment2" role="form" method="POST" action="{{ url("/drugs/myNested") }}">{!! csrf_field() !!}<input type="hidden" name="com_id" value=' + data[i].id + '><div class="form-group" style="padding-top: 10px;"><input type="hidden" name="drug_id" value="{{$drugPharUser->id}}"><input type="text" name="com_text" class="form-control" placeholder="Reply..."></div><button type="submit" class="btn btn-success">Reply</button></form></div></div></div>');
+						$(".myComUl").append('<div class="media"><div class="commenterImage"><img src="http://gurucul.com/wp-content/uploads/2015/01/default-user-icon-profile.png" /></div><div class="media-body"><div class="commentText"><p class="">' + data[i].desc + '</p><span class="username date sub-text">by' + data[i].user.name + ' ' + data[i].user.lastname + '</span> <span class="date sub-text">' + data[i].created_at + '</span></div><!-- Nested Comment --><span id="' + data[i].id + '" class="sokri" >Reply</span><div class="' + data[i].id + ' koms" ><!-- End Nested Comment --><form class="coment2" role="form" method="POST" action="{{ url("/drugs/myNested") }}">{!! csrf_field() !!}<input type="hidden" name="com_id" value=' + data[i].id + '><div class="form-group" style="padding-top: 10px;"><input type="hidden" name="drug_id" value="{{$drugPharUser->id}}"><input type="text" name="com_text" class="form-control" placeholder="Reply..."></div><button type="submit" class="btn btn-success">Reply</button></form></div></div></div>');
 
-            		$('.' + data[i].id).hide();
-                    //$(".sokri").show();
-               	}            
+						$('.' + data[i].id).hide();
+						//$(".sokri").show();
+					}
+				}				
         	});
 
         	setTimeout(arguments.callee, 3000);

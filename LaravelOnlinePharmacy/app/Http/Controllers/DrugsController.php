@@ -138,21 +138,21 @@ class DrugsController extends Controller
     }
 
     public function show($id){
-
-
-        $drugPharUser = DrugPharmacyUser::where('id', '=', $id)->get()->first();
-
+		$drugPharUser = DrugPharmacyUser::where('id', '=', $id)->get()->first();
 
         $comments = CommentDrug::where('drug_pharmacy_id', '=', $id)->get();
 
-//         if(is_null($comments)){
-//         	$comments = CommentDrug::all();
-//         }
+        $imaKom = -1;
         
-        $nestedComments=NestedComment::all(); //site komentari za toj dfu
+        //dd($comments);
+        
+        if(!is_null($comments->first())){
+        	$imaKom = $comments[sizeof($comments) - 1]->comment_id;
+        }
+        
+        $nestedComments = NestedComment::all(); //site komentari za toj dfu
 
-
-        //dd($nestedComments->first()->desc);
+        //dd($nestedComments->last()->desc);
 
         //$votes = Vote::where('drug_pharmacy_id', '=', $id)->get();
         $votes = Vote::where('drug_pharmacy_id', '=', $id)->get();
@@ -184,6 +184,8 @@ class DrugsController extends Controller
         if(Auth::check()){
             $disabeldB = "";
         }
+        
+        //dd($imaKom);
 
         return view('drug.show')->with([
             'drugPharUser' => $drugPharUser,
@@ -192,6 +194,7 @@ class DrugsController extends Controller
             'numOfDislikes' => $brDislikes,
             'disabled' => $disabeldB,
             'nestedComment' => $nestedComments,
+        	'imaKom' => $imaKom,
         ]);
     }
 
